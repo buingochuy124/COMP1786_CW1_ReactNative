@@ -3,36 +3,9 @@ import {  StyleSheet,  Text,  View,  Button,  TextInput,  Alert,} from 'react-na
 import { RadioButton } from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { openDatabase } from 'react-native-sqlite-storage';
+import InputValueItem from './InputValue';
 
 let database = openDatabase({ name: 'TripDiary.db' });
-
-const InputValueItem = (props) => {
-  return (
-    <View
-      style={{
-        marginLeft: 35,
-        marginRight: 35,
-        marginTop: 10,
-        borderColor: 'red',
-        borderWidth: 1,
-      }}>
-      <TextInput
-        underlineColorAndroid="transparent"
-        placeholder={props.placeholder}
-        placeholderTextColor="red"
-        keyboardType={props.keyboardType}
-        onChangeText={props.onChangeText}
-        returnKeyType={props.returnKeyType}
-        numberOfLines={props.numberOfLines}
-        multiline={props.multiline}
-        onSubmitEditing={props.onSubmitEditing}
-        style={props.style}
-        blurOnSubmit={false}
-        value={props.value}
-      />
-    </View>
-  )
-}
 
 const AddTripScreen = ({ navigation }) => {
   const [isShowDatePicker, setShowDatePicker] = useState(false);

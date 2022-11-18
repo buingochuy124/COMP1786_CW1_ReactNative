@@ -8,13 +8,13 @@ const InputValueItem = (props) => {
         marginLeft: 35,
         marginRight: 35,
         marginTop: 10,
-        borderColor: 'green',
+        borderColor: 'red',
         borderWidth: 1,
       }}>
       <TextInput
         underlineColorAndroid="transparent"
         placeholder={props.placeholder}
-        placeholderTextColor="green"
+        placeholderTextColor="red"
         onChangeText={props.onChangeText}
         value={props.value}
       />
