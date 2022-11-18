@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {  StyleSheet,  Text,  View,  FlatList,  Alert,  TouchableOpacity,  Button,} from 'react-native';
-import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
 import { openDatabase } from 'react-native-sqlite-storage';
 
-let database = openDatabase({ name: 'TripAppData.db' });
+let database = openDatabase({ name: 'TripDiary.db' });
 
 const TripListScreen = ({ navigation }) => {
   let [dataTrip, setDataTrip] = useState([]);
@@ -47,7 +46,6 @@ const TripListScreen = ({ navigation }) => {
         [],
         function (tx, res) {
           if (res.rows.length == 0) {
-            // txn.executeSql('DROP TABLE IF EXISTS Trips', []);
             txn.executeSql(
               'CREATE TABLE IF NOT EXISTS Trips(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, destination TEXT, date TEXT, risk_assesment TEXT, description TEXT)',
               []
@@ -56,8 +54,6 @@ const TripListScreen = ({ navigation }) => {
         }
       );
     });
-    //Alert.alert('xong...');
-
     database.transaction((tx) => {
       tx.executeSql(
         'SELECT * FROM Trips',
@@ -71,7 +67,6 @@ const TripListScreen = ({ navigation }) => {
         }
       );
     });
-
     const focusHandler = navigation.addListener('focus', () => {
       database.transaction((tx) => {
         tx.executeSql(
@@ -89,7 +84,6 @@ const TripListScreen = ({ navigation }) => {
     });
     return focusHandler;
   }, [navigation]);
-
 
   const deleteAll = async () => {
     await database.transaction(tx => {
@@ -117,11 +111,10 @@ const TripListScreen = ({ navigation }) => {
     });
   };
 
-  console.log(dataTrip);
 
   return (
     <View style={styles.container}>
-      {/* FlatList same with cyc view in android */}
+     
       <FlatList
         data={dataTrip}
         keyExtractor={(item, index) => index.toString()}
@@ -151,7 +144,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: 800,
-    //   backgroundColor: 'white',
   },
   itemTrip: {
     marginTop: 4,

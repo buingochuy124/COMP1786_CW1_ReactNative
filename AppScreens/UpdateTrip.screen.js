@@ -5,7 +5,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { openDatabase } from 'react-native-sqlite-storage';
 import InputValueItem from './InputValue';
 
-let database = openDatabase({ name: 'TripAppData.db' });
+let database = openDatabase({ name: 'TripDiary.db' });
 
 const UpdateTripScreen = ({ route, navigation }) => {
   const {
@@ -16,40 +16,6 @@ const UpdateTripScreen = ({ route, navigation }) => {
     tripAssessment,
     tripDescription,
   } = route.params;
-
-  console.log(tripName, tripDestination, tripDate, tripAssessment, tripDescription);
-  console.log(typeof tripName, typeof tripDestination, typeof tripDate, typeof tripAssessment, typeof tripDescription);
-
-  // if (!tripName || tripName==="") {
-  //   alert('Please fill name');
-  //   return;
-  // }
-  // if (!tripDestination) {
-  //   alert('Please fill distination');
-  //   return;
-  // }
-  // if (!tripDate) {
-  //   alert('Please fill date');
-  //   return;
-  // }
-  // if (!tripAssessment) {
-  //   alert('Please fill assessment');
-  //   return;
-  // }
-  // if (!tripDescription) {
-  //   alert('Please fill description');
-  //   return;
-  // }
-
-  console.log(
-    'data from main screen',
-    id,
-    tripName,
-    tripDestination,
-    tripDate,
-    tripAssessment,
-    tripDescription,
-  );
 
   const [isShowDatePicker, setShowDatePicker] = useState(false);
   const [checkedValueAssessment, setCheckedValueAssessment] = useState(tripAssessment);
@@ -99,7 +65,6 @@ const UpdateTripScreen = ({ route, navigation }) => {
     );
 
     await database.transaction(function (tx) {
-      console.log(nameUpdate, distinationUpdate, dateUpdate, checkedValueAssessment, descriptionUpdate, id);
       tx.executeSql(
 
         'UPDATE Trips set name=?, destination=? , date=?, risk_assesment=?, description=? where id=?',

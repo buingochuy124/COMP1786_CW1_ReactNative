@@ -4,7 +4,7 @@ import { RadioButton } from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { openDatabase } from 'react-native-sqlite-storage';
 
-let database = openDatabase({ name: 'TripAppData.db' });
+let database = openDatabase({ name: 'TripDiary.db' });
 
 const InputValueItem = (props) => {
   return (
@@ -13,13 +13,13 @@ const InputValueItem = (props) => {
         marginLeft: 35,
         marginRight: 35,
         marginTop: 10,
-        borderColor: 'green',
+        borderColor: 'red',
         borderWidth: 1,
       }}>
       <TextInput
         underlineColorAndroid="transparent"
         placeholder={props.placeholder}
-        placeholderTextColor="green"
+        placeholderTextColor="red"
         keyboardType={props.keyboardType}
         onChangeText={props.onChangeText}
         returnKeyType={props.returnKeyType}
@@ -54,7 +54,6 @@ const AddTripScreen = ({ navigation }) => {
   };
 
   const handleConfirm = (dateTrip) => {
-    console.log("A date has been picked: ", dateTrip);
     let convertDate = new Date(dateTrip);
     let formatConvertDate =
       convertDate.getDate() +
@@ -63,37 +62,30 @@ const AddTripScreen = ({ navigation }) => {
       '-' +
       convertDate.getFullYear();
 
-    console.log("A date has been picked: ", formatConvertDate);
     setDateTrip(formatConvertDate);
-
     hideDatePicker();
     setDateSelectTrip(formatConvertDate);
   };
 
   const andNewTrip = () => {
-    console.log(name, destination, date, checkedValueAssessment, description);
-    console.log(typeof name, typeof destination, typeof date, typeof checkedValueAssessment, typeof description);
-
-  
-
     if (!name) {
-      alert('Please fill name');
+      alert('Please enter name');
       return;
     }
     if (!destination) {
-      alert('Please fill destination');
+      alert('Please enter destination');
       return;
     }
     if (!date) {
-      alert('Please fill date');
+      alert('Please enter date');
       return;
     }
     if (!checkedValueAssessment) {
-      alert('Please fill assessment');
+      alert('Please enter assessment');
       return;
     }
     if (!description) {
-      alert('Please fill description');
+      alert('Please enter description');
       return;
     }
 
@@ -105,7 +97,6 @@ const AddTripScreen = ({ navigation }) => {
         'INSERT INTO Trips (name, destination, date, risk_assesment, description) VALUES (?,?,?,?,?)',
         [name, destination, date, checkedValueAssessment, description],
         (tx, results) => {
-          console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
             Alert.alert(
               'Success',
